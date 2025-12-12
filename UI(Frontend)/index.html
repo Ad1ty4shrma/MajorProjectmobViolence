@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Mob Violence Detection Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+    <div class="app">
+        <!-- Top navbar -->
+        <header class="navbar">
+            <div class="navbar-title">
+                <span class="logo-dot"></span>
+                <span>Mob Violence Detection</span>
+            </div>
+            <div class="navbar-right">
+                <span class="tag">Deep Learning · CCTV</span>
+            </div>
+        </header>
+
+        <!-- Main content -->
+        <main class="main">
+            <!-- Left: Live feed / preview -->
+            <section class="panel panel-main">
+                <div class="panel-header">
+                    <h2>Live Camera Feed</h2>
+                    <span class="status-pill" id="systemStatus">Idle</span>
+                </div>
+                <div class="video-wrapper">
+                    <!-- Placeholder for now; later you can plug an MJPEG/RTSP stream -->
+                    <div class="video-placeholder">
+                        <span>Live feed preview</span>
+                        <small>Connect this to /video_feed or a stream later</small>
+                    </div>
+
+                    <!-- Overlay badge -->
+                    <div class="overlay-badge" id="liveStatusBadge">
+                        <span class="dot dot-safe"></span>
+                        <span id="liveStatusText">Safe</span>
+                    </div>
+                </div>
+
+                <div class="panel-footer">
+                    <div class="info-label">
+                        <span class="label-title">Threshold</span>
+                        <span class="label-value" id="thresholdValue">0.60</span>
+                    </div>
+                    <div class="info-label">
+                        <span class="label-title">Last prediction</span>
+                        <span class="label-value" id="lastPredictionTime">—</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right: Controls + logs -->
+            <section class="side-column">
+                <!-- Upload & classify -->
+                <section class="panel">
+                    <div class="panel-header">
+                        <h2>Analyze a Video Clip</h2>
+                    </div>
+                    <div class="upload-area" id="uploadArea">
+                        <input type="file" id="videoInput" accept="video/*" hidden />
+                        <button id="uploadBtn" class="btn-primary">Choose Video</button>
+                        <p class="upload-text">
+                            Select a CCTV clip to run the violence detection model.
+                        </p>
+                        <p class="upload-file-name" id="fileName">No file selected</p>
+                        <button id="analyzeBtn" class="btn-secondary" disabled>
+                            Analyze Clip
+                        </button>
+                        <div class="loader" id="loader" hidden></div>
+                        <p class="error-text" id="errorText" hidden></p>
+                    </div>
+
+                    <div class="result-card" id="resultCard" hidden>
+                        <h3>Prediction Result</h3>
+                        <div class="result-row">
+                            <span class="result-label">Label</span>
+                            <span class="result-value" id="resultLabel">—</span>
+                        </div>
+                        <div class="result-row">
+                            <span class="result-label">Probability</span>
+                            <span class="result-value" id="resultProb">—</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Alert log -->
+                <section class="panel">
+                    <div class="panel-header">
+                        <h2>Alert Log</h2>
+                    </div>
+                    <div class="log-list" id="logList">
+                        <p class="log-empty">No alerts yet. Run an analysis to see logs here.</p>
+                    </div>
+                </section>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
